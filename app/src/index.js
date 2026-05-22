@@ -45,7 +45,13 @@ const connectToDatabase = require('./database/connectToDatabase.js');
         try {
             console.log(`Started refreshing ${commands.length} application (/) commands.`);
             // The put method is used to fully refresh all commands in the guild with the current set
-            const data = await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), { body: commands });
+            const data = async () => {
+                if (process.env.USE_GLOBAL_COMMANDS === 'true') {
+                    return (await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID || client.application.id), { body: commands }));
+                } else {
+                    return (await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), { body: commands }));
+                };
+            };
             console.log(`Successfully reloaded ${data.length} application (/) commands.`);
         } catch (error) {
             // And of course, make sure you catch and log any errors!

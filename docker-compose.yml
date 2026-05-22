@@ -42,6 +42,7 @@ services:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
       DISCORD_GUILD_ID: ${DISCORD_GUILD_ID}
+      USE_GLOBAL_COMMANDS: ${USE_GLOBAL_COMMANDS:-false}
       DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-user_admin}:${POSTGRES_PASSWORD:-user_password123}@postgres:5437/${POSTGRES_DB:-db_admin}
     depends_on:
       postgres:
