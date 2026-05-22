@@ -1,33 +1,39 @@
 COMPOSE ?= docker compose
 
-.PHONE: help install run build up up-detached up-db up-detached down stop restart logs restart-db logs-db logs-app clean-volumes
+.PHONE: help install-discord-bot install-express-api run build up up-detached up-db up-detached down stop restart logs restart-db restart-discord-bot logs-db logs-discord-bot logs-express-api clean-volumes
 
 help:
 	@echo "RPG Discord Bot - Makefile"
-	@echo "  make install                Install npm dependencies\n"
-	@echo "  make run                    Run app\n"
-	@echo "  make build                  Build API image\n"
-	@echo "  make up                     Start stack in foreground\n"
-	@echo "  make up-detached            Start stack in background\n"
-	@echo "  make up-db                  Start database container\n"
-	@echo "  make up-db-detached         Start database container in background\n"
-	@echo "  make down                   Stop stack\n"
-	@echo "  make stop                   Stop containers\n"
-	@echo "  make restart                Restart containers\n"
-	@echo "  make logs                   Show container logs\n"
-	@echo "  make restart-db             Restart database container\n"
-	@echo "  make logs-db                Show database container logs\n"
-	@echo "  make logs-app			     Show app container logs\n"
-	@echo "  make clean-volumes 		 Remove all volumes\n"
+	@echo "  make install-discord-bot		Install npm dependencies for Discord bot"
+	@echo "  make install-express-api     	Install npm dependencies for Express API"
+	@echo "  make run                    	Run app"
+	@echo "  make build                  	Build API image"
+	@echo "  make up                     	Start stack in foreground"
+	@echo "  make up-detached            	Start stack in background"
+	@echo "  make up-db                  	Start database container"
+	@echo "  make up-db-detached         	Start database container in background"
+	@echo "  make down                   	Stop stack"
+	@echo "  make stop                   	Stop containers"
+	@echo "  make restart                	Restart containers"
+	@echo "  make logs                   	Show container logs"
+	@echo "  make restart-db             	Restart database container"
+	@echo "  make restart-discord-bot    	Restart discord bot container"
+	@echo "  make logs-db                	Show database container logs"
+	@echo "  make logs-discord-bot			Show discord bot container logs"
+	@echo "  make logs-express-api			Show express api container logs"
+	@echo "  make clean-volumes 		 	Remove all volumes"
 
-install:
+install-discord-bot:
 	cd apps/bot && npm install
+
+install-express-api:
+	cd apps/node-api && npm install
 
 run:
 	node --env-file=.env apps/bot/src/index.js
 
 build:
-	$(COMPOSE) build discord-bot 
+	$(COMPOSE) build discord-bot && $(COMPOSE) build express-api
 
 up:
 	$(COMPOSE) up --build
@@ -48,7 +54,7 @@ stop:
 	$(COMPOSE) stop
 
 restart:
-	$(COMPOSE) restart discord-bot
+	$(COMPOSE) restart discord-bot && $(COMPOSE) restart express-api
 
 logs:
 	$(COMPOSE) logs -f
@@ -56,11 +62,17 @@ logs:
 restart-db:
 	$(COMPOSE) restart postgres
 
+restart-discord-bot:
+	$(COMPOSE) restart discord-bot
+
 logs-db:
 	$(COMPOSE) logs -f postgres
 
-logs-app:
-	$(COMPOSE) logs -f bot
+logs-discord-bot:
+	$(COMPOSE) logs -f discord-bot
+
+logs-express-api:
+	$(COMPOSE) logs -f express-api
 
 clean-volumes:
 	$(COMPOSE) down -v
