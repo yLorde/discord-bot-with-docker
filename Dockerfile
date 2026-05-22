@@ -2,10 +2,10 @@ FROM node:20-alpine
 
 WORKDIR /
 
-COPY apps/bot/package*.json ./bot
+COPY apps/discord-bot/package*.json ./bot
 RUN npm install --omit=dev --verbose
 
-COPY apps/bot ./bot
+COPY apps/discord-bot ./bot
 
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
@@ -23,10 +23,10 @@ CMD ["node", "./bot/src/index.js"]
 FROM node:20-alpine
 WORKDIR /
 
-COPY apps/node-api/package*.json ./api
+COPY apps/express-api/package*.json ./api
 RUN npm install --omit=dev --verbose
 
-COPY apps/node-api ./api
+COPY apps/express-api ./api
 
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001

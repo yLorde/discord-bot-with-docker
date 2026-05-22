@@ -36,7 +36,7 @@ services:
   discord-bot:
     build:
       context: .
-      dockerfile: ./apps/bot/Dockerfile
+      dockerfile: ./apps/discord-bot/Dockerfile
     image: dsa-digital-discord-bot:v1
     container_name: discord-bot
     restart: unless-stopped
@@ -56,7 +56,7 @@ services:
   express-api:
     build:
       context: .
-      dockerfile: ./apps/node-api/Dockerfile
+      dockerfile: ./apps/express-api/Dockerfile
     image: dsa-digital-express-api:v1
     container_name: express-api
     restart: unless-stopped
