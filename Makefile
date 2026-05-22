@@ -1,5 +1,4 @@
 COMPOSE ?= docker compose
-SERVICE ?= discord-bot
 
 .PHONE: help install run build up up-detached up-db up-detached down stop restart logs restart-db logs-db logs-app clean-volumes
 
@@ -22,13 +21,13 @@ help:
 	@echo "  make clean-volumes 		 Remove all volumes\n"
 
 install:
-	cd app && npm install
+	cd apps/bot && npm install
 
 run:
-	node --env-file=.env app/src/index.js
+	node --env-file=.env apps/bot/src/index.js
 
 build:
-	$(COMPOSE) build app
+	$(COMPOSE) build discord-bot 
 
 up:
 	$(COMPOSE) up --build
@@ -49,7 +48,7 @@ stop:
 	$(COMPOSE) stop
 
 restart:
-	$(COMPOSE) restart $(SERVICE)
+	$(COMPOSE) restart discord-bot
 
 logs:
 	$(COMPOSE) logs -f
@@ -61,7 +60,7 @@ logs-db:
 	$(COMPOSE) logs -f postgres
 
 logs-app:
-	$(COMPOSE) logs -f app
+	$(COMPOSE) logs -f bot
 
 clean-volumes:
 	$(COMPOSE) down -v

@@ -1,11 +1,11 @@
 FROM node:20-alpine
 
-WORKDIR /app
+WORKDIR /
 
-COPY app/package*.json ./
+COPY apps/bot/package*.json ./
 RUN npm install --omit=dev --verbose
 
-COPY app/src ./src
+COPY apps/bot ./
 
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001

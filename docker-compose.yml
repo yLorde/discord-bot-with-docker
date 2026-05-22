@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:18
-    container_name: discord-bot-db
+    container_name: database
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-db_admin}
@@ -33,9 +33,10 @@ services:
       start_period: 20s
     networks:
       - discord-bot-network
-  app:
+  discord-bot:
     build: .
-    container_name: discord-bot-app
+    image: dsa-digital-discord-bot:v1
+    container_name: bot
     restart: unless-stopped
     environment:
       NODE_ENV: production
