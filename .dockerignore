@@ -1,0 +1,10 @@
+/target/
+/.git/
+/.env
+/.env.*
+!.env.example
+Dockerfile
+docker-compose.yml
+node_modules/
+dist/
+.gitignore
