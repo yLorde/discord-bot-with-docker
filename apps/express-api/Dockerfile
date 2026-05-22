@@ -2,11 +2,11 @@ FROM node:20-alpine
 
 WORKDIR /src
 
-COPY apps/node-api/package*.json ./
+COPY apps/express-api/package*.json ./
 
 RUN npm install --omit=dev --verbose
 
-COPY apps/node-api ./
+COPY apps/express-api ./
 
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
