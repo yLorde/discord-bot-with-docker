@@ -112,7 +112,7 @@ Você pode gerar o link de convite através do Discord Developer Portal:
 ## 📈 Melhorias futuras
 
 - [ ] Sistema de slash commands
-- [*] Docker
+- [x] Docker
 - [ ] Logs avançados
 - [ ] Sistema de permissões
 - [ ] Dashboard web
