@@ -1,12 +1,13 @@
 COMPOSE ?= docker compose
 
-.PHONE: help install-discord-bot install-express-api run build up up-detached up-db up-detached down stop restart logs restart-db restart-discord-bot logs-db logs-discord-bot logs-express-api clean-volumes
+.PHONE: help install-discord-bot install-express-api run-discord-bot run-express-api build up up-detached up-db up-detached down stop restart logs restart-db restart-discord-bot logs-db logs-discord-bot logs-express-api clean-volumes
 
 help:
 	@echo "RPG Discord Bot - Makefile"
 	@echo "  make install-discord-bot		Install npm dependencies for Discord bot"
 	@echo "  make install-express-api     	Install npm dependencies for Express API"
-	@echo "  make run                    	Run app"
+	@echo "  make run-discord-bot        	Run Discord bot"
+	@echo "  make run-express-api        	Run Express API"
 	@echo "  make build                  	Build API image"
 	@echo "  make up                     	Start stack in foreground"
 	@echo "  make up-detached            	Start stack in background"
@@ -24,13 +25,16 @@ help:
 	@echo "  make clean-volumes 		 	Remove all volumes"
 
 install-discord-bot:
-	cd apps/bot && npm install
+	cd apps/discord-bot && npm install
 
 install-express-api:
-	cd apps/node-api && npm install
+	cd apps/express-api && npm install
 
-run:
-	node --env-file=.env apps/bot/src/index.js
+run-discord-bot:
+	node --env-file=.env apps/discord-bot/src/index.js
+
+run-express-api:
+	node --env-file=.env apps/express-api/src/index.js
 
 build:
 	$(COMPOSE) build discord-bot && $(COMPOSE) build express-api
