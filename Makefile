@@ -1,11 +1,12 @@
 COMPOSE ?= docker compose
 SERVICE ?= discord-bot
 
-.PHONE: help install build up up-detached down stop restart logs restart-db logs-db logs-app clean-volumes
+.PHONE: help install run build up up-detached down stop restart logs restart-db logs-db logs-app clean-volumes
 
 help:
 	@echo "RPG Discord Bot - Makefile"
 	@echo "  make install                Install npm dependencies\n"
+	@echo "  make run                    Run app\n"
 	@echo "  make build                  Build API image\n"
 	@echo "  make up                     Start stack in foreground\n"
 	@echo "  make up-detached            Start stack in background\n"
@@ -20,6 +21,9 @@ help:
 
 install:
 	cd app && npm install
+
+run:
+	node --env-file=.env app/src/index.js
 
 build:
 	$(COMPOSE) build app
