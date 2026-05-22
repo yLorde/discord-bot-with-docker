@@ -40,12 +40,9 @@ services:
     environment:
       NODE_ENV: production
       DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+      DISCORD_GUILD_ID: ${DISCORD_GUILD_ID}
       DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-user_admin}:${POSTGRES_PASSWORD:-user_password123}@postgres:5437/${POSTGRES_DB:-db_admin}
-      DB_HOST: postgres
-      DB_PORT: 5437
-      DB_USER: ${POSTGRES_USER:-user_admin}
-      DB_PASSWORD: ${POSTGRES_PASSWORD:-user_password123}
-      DB_NAME: ${POSTGRES_DB:-db_admin}
     depends_on:
       postgres:
         condition: service_healthy
