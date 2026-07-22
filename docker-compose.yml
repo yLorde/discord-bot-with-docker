@@ -7,7 +7,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-db_admin}
       POSTGRES_USER: ${POSTGRES_USER:-user_admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-user_password123}
-      POSTGRES_PORT: 5437
+      POSTGRES_PORT: ${POSTGRES_PORT:-5439}
       PGDATA: /var/lib/postgresql/data/pgdata
     command:
       - postgres
